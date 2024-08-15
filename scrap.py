@@ -76,16 +76,6 @@ def home():
         return soup
 
     table_data = extract_info(soup)
-
-    conn = connect_db()
-    if isinstance(conn, str):
-        return conn
-    insert_result = insert_table_data(conn, [table_data])
-    if isinstance(insert_result, str):
-        return insert_result
-
-    conn.close()
-
     return render_template_string("""
     <h1>Web Scraping Result</h1>
     <form method="get">
