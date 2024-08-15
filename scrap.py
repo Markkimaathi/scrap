@@ -66,7 +66,7 @@ def extract_info(soup):
 
 @app.route('/')
 def home():
-    url = request.args.get('url', 'https://www.unido.org/get-involved-procurement/procurement-opportunities')
+    url = request.args.get('url')
     content = get_page_content(url)
     if isinstance(content, str) and content.startswith('Error'):
         return content
