@@ -123,7 +123,17 @@ def parse_html(content):
 
 @app.route('/')
 def home():
-    url = request.args.get('url', 'https://www.unido.org/get-involved-procurement/procurement-opportunities')
+    url = request.args.get('url')
+    if not url:
+        return render_template_string("""
+        <h1>Web Scraping Tool</h1>
+        <form method="get">
+            <label for="url">Enter URL:</label>
+            <input type="text" id="url" name="url" placeholder="Enter URL here">
+            <input type="submit" value="Scrape">
+        </form>
+        """)
+
     content = get_page_content(url)
     if isinstance(content, str) and content.startswith('Error'):
         return content
